@@ -1,5 +1,5 @@
 # SFSU-Coding-In-C
-Fundamental coding assignment in C, done at San Francisco State University as part of a class on Operating Systems. 
+Fundamental coding assignment in C, done at San Francisco State University as part of a class on operating systems. 
 Overview:
 - Assignment 1: Hello World
 - Assignment 2: Build a basic shell 
