@@ -1,3 +1,7 @@
+//Name: Jonas Vinter-Jensen
+//SFSU ID: 912941515
+//Homework #4 / CSC 415 [01] / Fall-17
+
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
