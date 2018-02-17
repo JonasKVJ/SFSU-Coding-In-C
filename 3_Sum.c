@@ -1,8 +1,8 @@
+//Name: Jonas Vinter-Jensen
+//SFSU ID: 912941515
+//Homework #3 / CSC 415 [01] / Fall-17
+
 /* This program calculates the summation of numbers from 0 to a non-negative interger. All the numbers are divided into three groups with approximately equal size. Three child threads are created and the summation of all the numbers in one group calculated in a separate child thread. The parent thread adds the summation results obtained from all child threads and prints out the overall summation of all the numbers. */
-
-//IMPORTANT: This is synchronous threading identified by the parent waiting for the children to terminate before it finishes its own execution. In Synchronous threading, the goal is make the children do a shared calculation and then have the parent gather the results once they are all done. All the children are created at the same time and run in sync.
-//Opposite this to asynchronous threading, where the parent would run alongside the children and none of the children and parents are in sync with each other.
-
 #include <pthread.h> /* header file for Pthread API */
 #include <stdio.h>
 
