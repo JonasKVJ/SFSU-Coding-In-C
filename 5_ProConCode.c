@@ -160,18 +160,11 @@ void* consumer(void* cStruct)
 
 	for(int i=0; i<num_consumed; i++)
 	{
-		/*--Debugging--
-		int semval;
-		sem_getvalue(&full, &semval);
-		printf("Value of full before sem_wait(&full) in consumer = %d\n", semval);  
-		*/
-
 		//If full==0: busy wait until some producer produces an item. 
 		//else: full--
 		sem_wait(&full); 
 
-		//Critical section start
-		
+		//## Critical section start ##
 		//Lock mutex to prevent multiple threads from accessing ASCII_Total at the same 
 		//time
         	if( pthread_mutex_lock(&mtx) != 0 )
@@ -190,7 +183,7 @@ void* consumer(void* cStruct)
             		printf("%s", "Exiting...");
            		exit(EXIT_FAILURE);
         	}
-		//Critical section end
+		//## Critical section end ##
 
 		/*Empty++ , and since every possible producer thread and every possible consumer 
 		thread may take their turn after any sem_post(&full) or sem_post (&empty), the 
@@ -217,8 +210,7 @@ void* producer(void* pStruct)
 		//Else: empty--
 		sem_wait(&empty); 
 
-		//Critical section start
-		
+		//## Critical section start ##
 		//Lock mutex to prevent multiple threads from accessing ASCII_Total at the same 
 		//time
         	if( pthread_mutex_lock(&mtx) != 0 )
@@ -237,7 +229,7 @@ void* producer(void* pStruct)
             		printf("%s", "Exiting...");
            		exit(EXIT_FAILURE);
         	}
-		//Critical section end
+		//## Critical section end ##
 
 		counter++; //No need to lock this, since each thread has a local copy
 		sem_post(&full); //full++ every time an item is added to buffer
