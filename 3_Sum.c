@@ -1,7 +1,7 @@
 //Name: Jonas Vinter-Jensen
 //Homework #3 / CSC 415 [01] / Fall-17
 
-/* This program calculates the summation of numbers from 0 to a non-negative interger. All the numbers are divided into three groups with approximately equal size. Three child threads are created and the summation of all the numbers in one group calculated in a separate child thread. The parent thread adds the summation results obtained from all child threads and prints out the overall summation of all the numbers. */
+/* This program calculates the summation of numbers from 0 to a non-negative integer. All the numbers are divided into three groups with approximately equal size. Three child threads are created and the summation of all the numbers in one group calculated in a separate child thread. The parent thread adds the summation results obtained from all child threads and prints out the overall summation of all the numbers. */
 #include <pthread.h> /* header file for Pthread API */
 #include <stdio.h>
 
