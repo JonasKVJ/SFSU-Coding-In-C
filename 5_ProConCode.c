@@ -1,4 +1,4 @@
-//Jonas Vinter-Jensen | ID 912941515
+//Jonas Vinter-Jensen
 //CSC 415 [01] | San Francisco State University | Fall-17
 //Homework 5: Producer Consumer Problem w. Semaphores 
 
