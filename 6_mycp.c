@@ -1,5 +1,4 @@
 // Name: Jonas Vinter-Jensen
-// ID: 912941515
 // CSC 415 [01] | Fall-17
 // San Francisco State University
 // HW6 : CustomCP
