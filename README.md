@@ -1,5 +1,7 @@
 # SFSU-Coding-In-C
 Fundamental coding assignments in C, completed at San Francisco State University as part of a class on operating systems. 
+If reading these to assert my skill level, the best place to start would be assignment 4 or 5. If intending to run the programs on an OS other than Ubuntu 16.04, assignment 3 would be the best candidate. 
+
 Overview:
 - Assignment 1: Hello World
 - Assignment 2: Build a basic shell 
