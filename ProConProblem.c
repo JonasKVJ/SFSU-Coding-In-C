@@ -1,6 +1,6 @@
-//Jonas Vinter-Jensen
+//Jonas Stagnaro, formerly Jonas Vinter-Jensen
 //CSC 415 [01] | San Francisco State University | Fall-17
-//Homework 5: Producer Consumer Problem w. Semaphores 
+//Producer Consumer Problem using Semaphores 
 
 //Compatability: This program will work in Ubuntu 16.04LTS 64-bit (VirtualBox), but not in OSX 
 #include <pthread.h> 
@@ -13,11 +13,11 @@
 int buffer[BUFFER_SIZE]; 
 int num_consumed = 0; //Number of items that each consumer thread should consume  
 int count = 0; 
-int in = 0; //Contains the index of the first free slot in buffer 
+int in = 0; //Contains the index of the first free slot of the buffer 
 int num_of_consumers = 0;
 int num_of_items = 0; //Each producer will produce this number of items   
 int num_of_producers = 0; 
-int out = 0; //Contains the index of the first full slot in buffer 
+int out = 0; //Contains the index of the first full slot of the buffer 
 int num_produced = 0; //Number of items that each producer thread will produce   
 
 pthread_mutex_t mtx;
@@ -49,7 +49,7 @@ int main(int argc, const char* argv[])
 	printf("number of items/producer = %d\n\n", num_of_items);
 
 	//Calculate the workload for each thread as the number of items they may produce/consume
-	//The edge case of unequeal workloads is ignored here 
+	//The edge case of unequal workloads is ignored here 
 	num_consumed = (num_of_items*num_of_producers)/num_of_consumers;
 	num_produced = num_of_items;
 
@@ -61,8 +61,8 @@ int main(int argc, const char* argv[])
         	exit(EXIT_FAILURE);
    	}
 
-	//Initialize semaphore. Second parameter: pshared, whether semaphore should be shared 
-	//with fork()'ed processes
+	//Initialize semaphore. Second parameter: pshared, which determines whether the semaphore should 
+	//be shared with fork()'ed processes
 	if( sem_init(&empty, 0, BUFFER_SIZE) != 0)
 	{
 		perror("sem_init(empty) error");
@@ -77,12 +77,6 @@ int main(int argc, const char* argv[])
 	}
 
    	pthread_attr_t attributes;
-   	/*if(pthread_attr_init(&attributes) != 0) //Initialize with default attributes
-    	{
-        	perror("pthread_attr_init() error");
-        	printf("%s", "Exiting...");
-        	exit(EXIT_FAILURE);
-    	}*/
 	pthread_attr_init(&attributes); 
 
 	pthread_t thread_ID_C[num_of_consumers];
@@ -98,7 +92,7 @@ int main(int argc, const char* argv[])
 	{
 		C_Data[i].threadIndex = i;
 
-		//Parameters: ID of newly created thread, 
+		//First parameter: ID of newly created thread 
         	if( pthread_create(&thread_ID_C[i], &attributes, &consumer, &C_Data[i] ) != 0)
       	 	{
            		 perror("consumer pthread_create() error");
@@ -155,6 +149,7 @@ void* consumer(void* cStruct)
 	struct Consumer_Data* C_Data;
 
 	C_Data = cStruct; 
+	
 	//Each thread is passed its own associated struct, so a race condition is not possible
 	threadIndex = C_Data->threadIndex;
 
@@ -175,7 +170,7 @@ void* consumer(void* cStruct)
         	}
 
 		printf("Consumer %d consumed item: %d\n", threadIndex, buffer[out]);	
-		out = (out+1)%BUFFER_SIZE; //Increase out to point to the next full slot 
+		out = (out+1)%BUFFER_SIZE; //Increase out so it points to the next full slot 
 
 		if( pthread_mutex_unlock(&mtx) != 0 )
         	{
@@ -185,8 +180,8 @@ void* consumer(void* cStruct)
         	}
 		//## Critical section end ##
 
-		/*Empty++ , and since every possible producer thread and every possible consumer 
-		thread may take their turn after any sem_post(&full) or sem_post (&empty), the 
+		/*Empty++ happens here, and since any producer thread or any of the possible consumer 
+		threads may take their turn after any sem_post(&full) or sem_post (&empty), the 
 		sem_post statements must be located inside the two for loops*/
 		sem_post(&empty); 
 	}
@@ -221,7 +216,7 @@ void* producer(void* pStruct)
         	}
 
 		buffer[in] = threadIndex*num_produced + counter;
-		in = (in+1)%BUFFER_SIZE; //Increase in to point to the next empty slot 
+		in = (in+1)%BUFFER_SIZE; //Increase in so it will point to the next empty slot 
 
 		if( pthread_mutex_unlock(&mtx) != 0 )
         	{
